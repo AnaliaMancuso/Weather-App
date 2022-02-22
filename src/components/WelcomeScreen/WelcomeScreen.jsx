@@ -24,7 +24,7 @@ const WelcomeScreen = ({ children }) => {
       }
     };
   }, [vanta]);
-  return <div ref={myRefDiv}>WelcomeScreen</div>;
+  return <div className="full" ref={myRefDiv}>{children}</div>;
 };
 
 WelcomeScreen.propTypes = {

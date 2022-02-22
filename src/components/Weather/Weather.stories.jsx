@@ -7,8 +7,8 @@ export default {
 };
 
 export const WeatherCloud = () => (
-  <Weather temperature={"10"} state={"cloud"}></Weather>
+  <Weather temperature={"10"} state={"clouds"}></Weather>
 );
 export const WeatherSunny = () => (
-  <Weather temperature={"30"} state={"sunny"}></Weather>
+  <Weather temperature={"30"} state={"clear"}></Weather>
 );
