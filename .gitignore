@@ -11,6 +11,11 @@
 # production
 /build
 
+# excercise components
+src\components\exampleCurrying.jsx
+src\components\ErrorBoundary.jsx
+
+
 # misc
 .DS_Store
 .env.local

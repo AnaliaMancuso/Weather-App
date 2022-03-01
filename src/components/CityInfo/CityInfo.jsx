@@ -7,7 +7,7 @@ const CityInfo = ({city, country}) => {
   return (
     <>
     <Typography display="inline" variant="h4">{city}, </Typography>
-    <Typography display="inline" variant="h4">{country}</Typography>
+    <Typography display="inline" variant="h4"> {country}</Typography>
     </>
   )
 }

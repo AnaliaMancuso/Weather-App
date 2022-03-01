@@ -1,30 +1,48 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid } from "@mui/material";
+import { Grid, Skeleton } from "@mui/material";
 import { Typography } from "@mui/material";
 import { IconContext } from "react-icons/lib";
-import IconState from './../IconState'
+import IconState from "./../IconState";
 
 const Weather = ({ temperature, state }) => {
   return (
-    <Grid container item
-    direction="row"
-    justifyContent="center"
-    alignItems="center"
+    <Grid
+      container
+      item
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
     >
       <IconContext.Provider value={{ size: "6em" }}>
-       <IconState state={state}/>
+        {state ? (
+          <IconState state={state} />
+        ) : (
+          <Skeleton
+            variant="circular"
+            animation="wave"
+            width={80}
+            height={80}
+          />
+        )}
       </IconContext.Provider>
-      <Typography display="inline" variant="h2">
-        {temperature}
-      </Typography>
+      {temperature ? (
+        <Typography display="inline" variant="h2">{temperature}</Typography>
+      ) : (
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          width={80}
+          height={80}
+        />
+      )}
     </Grid>
   );
 };
 
 Weather.propTypes = {
-  temperature: PropTypes.number.isRequired,
-  state: PropTypes.string.isRequired
+  temperature: PropTypes.number,
+  state: PropTypes.string,
 };
 
 export default Weather;
