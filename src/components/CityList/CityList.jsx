@@ -6,13 +6,15 @@ import Weather from "./../Weather";
 import useCityList from "./../../hooks/useCityList";
 import { getCityCode } from "../../utils/utils";
 
-
 const renderCityAndCountry =
   (eventOnClickCity) => (cityAndCountry, weather) => {
     const { city, countryCode } = cityAndCountry;
 
     return (
-      <ListItemButton key={getCityCode(city, countryCode)} onClick={()=>eventOnClickCity(city, countryCode)}>
+      <ListItemButton
+        key={getCityCode(city, countryCode)}
+        onClick={() => eventOnClickCity(city, countryCode)}
+      >
         <Grid container justify="center" alignItems="center">
           <Grid item md={8} xs={12}>
             <CityInfo city={city} country={countryCode} />
@@ -28,18 +30,24 @@ const renderCityAndCountry =
     );
   };
 
-
-
-const CityList = ({ cities, onClickCity }) => {
-  const { allWeather, error, setError} = useCityList(cities);
+const CityList = ({ cities, onClickCity, actions, data }) => {
+  const {allWeather}= data
+  const { onSetAllWeather } = actions;
+  const { error, setError } = useCityList(cities, onSetAllWeather, allWeather);
   return (
     <div>
-      {error && <Alert onClose={()=>setError(null)} severity="error">{error}</Alert>}
+      {error && (
+        <Alert onClose={() => setError(null)} severity="error">
+          {error}
+        </Alert>
+      )}
       <ul>
         {cities.map((cityAndCountry) =>
           renderCityAndCountry(onClickCity)(
             cityAndCountry,
-            allWeather[getCityCode(cityAndCountry.city, cityAndCountry.countryCode)]
+            allWeather[
+              getCityCode(cityAndCountry.city, cityAndCountry.countryCode)
+            ]
           )
         )}
       </ul>

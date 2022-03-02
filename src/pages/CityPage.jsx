@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { Grid } from "@mui/material";
 import { LinearProgress } from "@mui/material";
 import AppFrame from "../components/AppFrame";
@@ -12,11 +12,22 @@ import useCityList from "./../hooks/useCityList";
 import { getCityCode } from "../utils/utils";
 import { getCountryNameByCountryCode } from "./../utils/serviceCities";
 
-const CityPage = () => {
-  const { city, countryCode, chartData, forecastItemList } = useCityPage();
-  const { allWeather } = useCityList([{ city, countryCode }]);
+const CityPage = ({actions, data }) => {
+  const {allWeather, allChartData, allForecastItemList}=data
+  const {onSetAllWeather, onSetChartData, onSetForecastItemList} = actions
+  const { city, countryCode} = useCityPage(allChartData, allForecastItemList, onSetChartData, onSetForecastItemList);
 
-  const weather = allWeather[getCityCode(city, countryCode)];
+  const cities = useMemo(
+    () => [{ city, countryCode }],
+    [city, countryCode]
+  );
+
+  useCityList(cities, onSetAllWeather, allWeather );
+
+  const cityCode= getCityCode(city, countryCode)
+  const weather = allWeather[cityCode];
+  const chartData= allChartData[cityCode]
+  const forecastItemList=allForecastItemList[cityCode]
   const country = countryCode && getCountryNameByCountryCode(countryCode);
   const state = weather && weather.state;
   const temperature = weather && weather.temperature;
